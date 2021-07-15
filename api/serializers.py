@@ -14,4 +14,4 @@ class CommentsSerializer(serializers.ModelSerializer):
     class Meta:
         model = Comments
         fields = "__all__"
-        extra_kwargs = {"publication": {"required": False}}
+        extra_kwargs = {"post": {"required": False}}

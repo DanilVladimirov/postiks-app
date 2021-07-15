@@ -1,7 +1,27 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="eca81bbe-52f4-48d8-a3e7-efe6b777e899" name="Default Changelist" comment="" />
+    <list default="true" id="eca81bbe-52f4-48d8-a3e7-efe6b777e899" name="Default Changelist" comment="">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/api/apps.py" beforeDir="false" afterPath="$PROJECT_DIR$/api/apps.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/api/serializers.py" beforeDir="false" afterPath="$PROJECT_DIR$/api/serializers.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/api/urls.py" beforeDir="false" afterPath="$PROJECT_DIR$/api/urls.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/api/views.py" beforeDir="false" afterPath="$PROJECT_DIR$/api/views.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/django.db" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/postsapp/apps.py" beforeDir="false" afterPath="$PROJECT_DIR$/postsapp/apps.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/postsapp/forms.py" beforeDir="false" afterPath="$PROJECT_DIR$/postsapp/forms.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/postsapp/migrations/0001_initial.py" beforeDir="false" afterPath="$PROJECT_DIR$/postsapp/migrations/0001_initial.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/postsapp/migrations/0002_alter_post_author.py" beforeDir="false" afterPath="$PROJECT_DIR$/postsapp/migrations/0002_alter_post_author.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/postsapp/migrations/0003_rename_publication_comments_post.py" beforeDir="false" afterPath="$PROJECT_DIR$/postsapp/migrations/0003_rename_publication_comments_post.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/postsapp/models.py" beforeDir="false" afterPath="$PROJECT_DIR$/postsapp/models.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/postsapp/tasks.py" beforeDir="false" afterPath="$PROJECT_DIR$/postsapp/tasks.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/postsapp/urls.py" beforeDir="false" afterPath="$PROJECT_DIR$/postsapp/urls.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/postsapp/views.py" beforeDir="false" afterPath="$PROJECT_DIR$/postsapp/views.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/usersapp/apps.py" beforeDir="false" afterPath="$PROJECT_DIR$/usersapp/apps.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/usersapp/forms.py" beforeDir="false" afterPath="$PROJECT_DIR$/usersapp/forms.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/usersapp/urls.py" beforeDir="false" afterPath="$PROJECT_DIR$/usersapp/urls.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/usersapp/views.py" beforeDir="false" afterPath="$PROJECT_DIR$/usersapp/views.py" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -137,7 +157,7 @@
       <workItem from="1626248240606" duration="13518000" />
       <workItem from="1626270147719" duration="12771000" />
       <workItem from="1626299138510" duration="24052000" />
-      <workItem from="1626347061430" duration="845000" />
+      <workItem from="1626347061430" duration="1422000" />
     </task>
     <servers />
   </component>
