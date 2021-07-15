@@ -6,4 +6,4 @@ from postsapp.models import Post
 def clear_upvotes():
     for post in Post.objects.all():
         post.users_upvotes.clear()
-    return 'upvotes cleared !'
+    return "upvotes cleared !"

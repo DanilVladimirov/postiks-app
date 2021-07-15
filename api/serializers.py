@@ -7,11 +7,11 @@ class PostSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Post
-        fields = '__all__'
+        fields = "__all__"
 
 
 class CommentsSerializer(serializers.ModelSerializer):
     class Meta:
         model = Comments
-        fields = '__all__'
-        extra_kwargs = {'publication': {'required': False}}
+        fields = "__all__"
+        extra_kwargs = {"publication": {"required": False}}

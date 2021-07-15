@@ -8,22 +8,21 @@ from api.serializers import PostSerializer, CommentsSerializer
 from rest_framework import status
 
 
-@api_view(['GET'])
+@api_view(["GET"])
 def api_overview(request, format=None):
     api_urls = {
-        'Delete, Update and Get the post': '/post/< id >/',
-        'Create post': reverse('post-create', request=request, format=format),
-        'View all posts': reverse('posts-all', request=request, format=format),
-        'Comments of post': '/post/< id >/comments/',
-        'Create comment': reverse('comment-add', request=request, format=format),
-        'Delete, Update and Get the comment': 'comment/< id >/'
+        "Delete, Update and Get the post": "/post/< id >/",
+        "Create post": reverse("post-create", request=request, format=format),
+        "View all posts": reverse("posts-all", request=request, format=format),
+        "Comments of post": "/post/< id >/comments/",
+        "Create comment": reverse("comment-add", request=request, format=format),
+        "Delete, Update and Get the comment": "comment/< id >/",
     }
 
     return Response(api_urls)
 
 
 class CommentsOfPost(APIView):
-
     def get(self, request, pid):
         post = Post.objects.get(id=pid)
         comments = post.comment.all()
@@ -32,7 +31,6 @@ class CommentsOfPost(APIView):
 
 
 class AddComment(APIView):
-
     def post(self, request):
         serializer = CommentsSerializer(data=request.data)
         if serializer.is_valid():
@@ -42,7 +40,6 @@ class AddComment(APIView):
 
 
 class CommentDetails(APIView):
-
     def get_object(self, cid):
         try:
             return Comments.objects.get(id=cid)
@@ -69,7 +66,6 @@ class CommentDetails(APIView):
 
 
 class PostCreate(APIView):
-
     def post(self, request):
         serializer = PostSerializer(data=request.data)
         if serializer.is_valid():
@@ -79,7 +75,6 @@ class PostCreate(APIView):
 
 
 class PostsView(APIView):
-
     def get(self, request):
         posts = Post.objects.all()
         serializer = PostSerializer(posts, many=True)
@@ -87,7 +82,6 @@ class PostsView(APIView):
 
 
 class PostDetails(APIView):
-
     def get_object(self, pid):
         try:
             return Post.objects.get(id=pid)

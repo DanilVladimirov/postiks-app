@@ -16,28 +16,72 @@ class Migration(migrations.Migration):
 
     operations = [
         migrations.CreateModel(
-            name='Post',
+            name="Post",
             fields=[
-                ('id', models.BigAutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('title', models.CharField(default='no-title', max_length=200)),
-                ('link', models.URLField(default='')),
-                ('date', models.DateTimeField(default=datetime.datetime.now)),
-                ('author', models.ForeignKey(null=True, on_delete=django.db.models.deletion.CASCADE, related_name='publication', to=settings.AUTH_USER_MODEL)),
-                ('users_upvotes', models.ManyToManyField(blank=True, related_name='votes', to=settings.AUTH_USER_MODEL)),
+                (
+                    "id",
+                    models.BigAutoField(
+                        auto_created=True,
+                        primary_key=True,
+                        serialize=False,
+                        verbose_name="ID",
+                    ),
+                ),
+                ("title", models.CharField(default="no-title", max_length=200)),
+                ("link", models.URLField(default="")),
+                ("date", models.DateTimeField(default=datetime.datetime.now)),
+                (
+                    "author",
+                    models.ForeignKey(
+                        null=True,
+                        on_delete=django.db.models.deletion.CASCADE,
+                        related_name="publication",
+                        to=settings.AUTH_USER_MODEL,
+                    ),
+                ),
+                (
+                    "users_upvotes",
+                    models.ManyToManyField(
+                        blank=True, related_name="votes", to=settings.AUTH_USER_MODEL
+                    ),
+                ),
             ],
             options={
-                'verbose_name': 'Post',
-                'verbose_name_plural': 'Posts',
+                "verbose_name": "Post",
+                "verbose_name_plural": "Posts",
             },
         ),
         migrations.CreateModel(
-            name='Comments',
+            name="Comments",
             fields=[
-                ('id', models.BigAutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('text', models.TextField(default='no-text')),
-                ('date', models.DateTimeField(default=datetime.datetime.now)),
-                ('author', models.ForeignKey(null=True, on_delete=django.db.models.deletion.CASCADE, related_name='u_comments', to=settings.AUTH_USER_MODEL)),
-                ('publication', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, related_name='comment', to='postsapp.post')),
+                (
+                    "id",
+                    models.BigAutoField(
+                        auto_created=True,
+                        primary_key=True,
+                        serialize=False,
+                        verbose_name="ID",
+                    ),
+                ),
+                ("text", models.TextField(default="no-text")),
+                ("date", models.DateTimeField(default=datetime.datetime.now)),
+                (
+                    "author",
+                    models.ForeignKey(
+                        null=True,
+                        on_delete=django.db.models.deletion.CASCADE,
+                        related_name="u_comments",
+                        to=settings.AUTH_USER_MODEL,
+                    ),
+                ),
+                (
+                    "publication",
+                    models.ForeignKey(
+                        on_delete=django.db.models.deletion.CASCADE,
+                        related_name="comment",
+                        to="postsapp.post",
+                    ),
+                ),
             ],
         ),
     ]
