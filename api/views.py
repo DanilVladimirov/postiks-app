@@ -43,7 +43,7 @@ class CommentDetails(APIView):
     def get_object(self, cid):
         try:
             return Comments.objects.get(id=cid)
-        except Post.DoesNotExist:
+        except Comments.DoesNotExist:
             raise Http404
 
     def get(self, request, cid, format=None):
