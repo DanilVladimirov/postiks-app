@@ -1,0 +1,23 @@
+build:
+  docker:
+    web: Dockerfile
+    worker: Dockerfile
+    worker_beat: Dockerfile
+    postman_collection: postman_collection/Dockerfile
+run:
+  web:
+    command:
+      - gunicorn postiks.wsgi:application --bind 0.0.0.0:$PORT
+    image: web
+  worker:
+    command:
+      - celery -A postiks worker -l info
+    image: worker
+  worker_beat:
+    command:
+      - celery -A postiks worker --beat -l info -S django
+    image: worker_beat
+  postman_collection:
+    command:
+      - newman run https://www.getpostman.com/collections/5466fd583152d6defc4e
+    image: postman_collection

@@ -1,0 +1,32 @@
+{% extends 'postsapp/base.html' %}
+
+{% load static %}
+{% block head %}
+    <link rel="stylesheet" href="{% static 'usersapp/css/register-page-style.css' %}">
+{% endblock %}
+
+{% block body %}
+    {% if form.errors %}
+        {% for field in form %}
+            {% for error in field.errors %}
+                <div class="message type-error">
+                    <strong>{{ error|escape }}</strong>
+                </div>
+            {% endfor %}
+        {% endfor %}
+        {% for error in form.non_field_errors %}
+            <div class="message type-error">
+                <strong>{{ error|escape }}</strong>
+            </div>
+        {% endfor %}
+    {% endif %}
+    <form method="post" class="form-register">
+        {% csrf_token %}
+        <div>have account ? - <a href="{% url 'login-page' %}">sign in</a></div>
+        <input type="text" name="username" placeholder="login" required>
+        <input type="email" name="email" placeholder="email" required>
+        <input type="password" name="password1" placeholder="password" required>
+        <input type="password" name="password2" placeholder="repeat password" required>
+        <button>sign up</button>
+    </form>
+{% endblock %}

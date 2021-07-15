@@ -1,0 +1,104 @@
+* {
+    font-family: sans-serif;
+}
+
+body {
+    margin: 0;
+    padding: 0;
+}
+
+a {
+    text-decoration: none;
+    color: #4576b3;
+    transition: all 0.3s ease;
+}
+
+a:hover {
+    color: #355b86;
+    transition: all 0.3s ease;
+}
+
+ul {
+    list-style-type: none;
+    padding: 0;
+    overflow: hidden;
+    background-color: #464646;
+    margin: 10px 0 10px 0;
+    border-radius: 10px;
+}
+
+li {
+    float: left;
+}
+
+li a {
+    display: block;
+    color: white;
+    text-align: center;
+    padding: 14px 16px;
+    text-decoration: none;
+    border-radius: 10px;
+    margin-left: 3px;
+    transition: all 0.2s ease;
+}
+
+
+li a:hover:not(.active) {
+    background-color: #3c3c3c;
+    color: white;
+    transition: all 0.2s ease;
+}
+
+.active {
+    background-color: #4576b3;
+    margin-left: 0;
+    transition: all 0.2s ease;
+}
+
+.active i {
+    transition: all 0.2s ease;
+}
+
+.active:hover i {
+    transition: all 0.2s ease;
+    margin-right: 4px;
+}
+
+
+.button-delete {
+    width: 100px;
+    padding: 5px;
+    border-radius: 10px;
+    border: 2px solid #a72a35;
+    background: #a72a35;
+    color: white;
+}
+
+.button-delete:hover {
+    background: #8c232c;
+    border-color: #8c232c;
+}
+
+
+.message {
+    padding: 10px;
+    border-radius: 10px;
+    margin-bottom: 10px;
+}
+
+.type-success {
+    background: #8dd88d;
+    color: #456d45;
+}
+
+.type-error {
+    background: #c35c65;
+    color: #69282e;
+}
+
+.title-page {
+    font-size: 20px;
+    font-weight: bold;
+    text-align: center;
+    margin-bottom: 10px;
+}

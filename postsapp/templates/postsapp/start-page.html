@@ -1,0 +1,133 @@
+{% extends 'postsapp/base.html' %}
+{% load static %}
+{% block head %}
+    <link rel="stylesheet" href="{% static 'postsapp/css/start-page-style.css' %}">
+    <script src="{% static 'postsapp/js/scroll_control.js' %}"></script>
+    <script src="{% static 'postsapp/js/vote_unvote.js' %}"></script>
+{% endblock %}
+
+{% block body %}
+    {% if request.user.is_authenticated %}
+        <div id="create-pub-popup">
+            <form method="post" enctype="multipart/form-data" id="form-add-pub" style="margin-top: 100px;">
+                <div class="title-page">Create post</div>
+                {% csrf_token %}
+                <input type="text" placeholder="title" name="title">
+                <input type="url" placeholder="link" name="link">
+                <button type="submit">create</button>
+            </form>
+        </div>
+    {% endif %}
+    <div class="pubs-title">
+        <div class="title">Posts</div>
+        <div style="display: flex;">
+            {% if request.user.is_authenticated %}
+                <button class="button-create" onclick="open_create_pub_popup()">
+                    <i class="far fa-plus-square"></i>
+                    Create
+                </button>
+            {% else %}
+                <div>Do you want to create a post ? - <a href="{% url 'login-page' %}">Sign in</a></div>
+            {% endif %}
+        </div>
+        <hr>
+    </div>
+    <div id="pubs">
+        {% for post in posts %}
+            <div class="pub" id="post-{{ post.id }}">
+                <div>
+                    <button class="button-vote" onclick="vote_unvote({{ post.id }})">
+                        <i id="icon-{{ post.id }}"
+                                {% if request.user in post.users_upvotes.all %}
+                                    class="fas fa-caret-square-down"
+                                {% else %}
+                                     class="fas fa-caret-square-up"
+                                {% endif %}
+                        ></i>
+                        vote(<span id="votes-{{ post.id }}">{{ post.amount_of_upvotes }}</span>)
+                    </button>
+                    {% if request.user.is_superuser or post.author == request.user %}
+                        <button onclick="del_post({{ post.id }})" class="button-delete"><i class="fas fa-trash-alt"></i>
+                            delete
+                        </button>
+                    {% endif %}
+                </div>
+                <div class="pub-title"><a href="{{ post.link }}">{{ post.title }}</a></div>
+                <div class="pub-info">{{ post.author.username }} {{ post.date|date:'Y-m-d H:i' }}
+                    <a href="{% url 'post-page' post.id %}">comment</a>
+                </div>
+            </div>
+        {% endfor %}
+    </div>
+    <script>
+        var modal = document.getElementById("create-pub-popup");
+
+        window.onclick = function (event) {
+
+            if (event.target == modal) {
+                modal.style.display = "none";
+                enableScrolling()
+            }
+        }
+
+        function open_create_pub_popup() {
+            if (modal.style.display === "block") {
+                modal.style.display = "none";
+                enableScrolling()
+            } else {
+                modal.style.display = "block";
+                disableScrolling()
+            }
+        }
+
+        $('#form-add-pub').submit(function (e) {
+            e.preventDefault();
+            $form = $(this)
+            var formData = new FormData(this);
+            $.ajax({
+                url: {% url 'add-post' %},
+                type: 'POST',
+                data: formData,
+                success: function (response) {
+                    console.log(response)
+                    if (response.success) {
+                        open_create_pub_popup()
+                        $('#form-add-pub')[0].reset();
+                        $new_pub = $('<div class="pub" id="post-' + response.post_id + '">' +
+                            '<div><button class="button-vote" onclick="vote_unvote(' + response.post_id + ')">' +
+                            '<i id="icon-' + response.post_id + '" class="fas fa-caret-square-up"></i> vote(<span id="votes-' + response.post_id +'">0</span>)' +
+                            '</button><button onclick = "del_post(' + response.post_id + ')" class="button-delete">' +
+                            '<i class="fas fa-trash-alt"></i> delete</button></div><div class="pub-title">' +
+                            '<a href="' + response.link + '">' + response.title + '</a>' + '</div><div class="pub-info">' + response.username + ' ' +
+                            ' ' + response.date + '<a href="/post/'+ response.post_id +'"> comment</a></div>' + '<div>')
+                        var pubs = document.getElementById('pubs');
+                        var first = pubs.childNodes[0];
+                        $new_pub.insertBefore(first)
+                    } else {
+
+                    }
+                },
+                cache: false,
+                contentType: false,
+                processData: false
+            });
+        });
+
+        function del_post(postid) {
+            $.ajax({
+                type: 'POST', url: '{% url "del-post" %}',
+                data: {'csrfmiddlewaretoken': csrf_token, 'postid': postid},
+                dataType: 'json',
+                cache: false,
+                success: function (response) {
+                    if (response.success) {
+                        var post = "#post-" + postid;
+                        $(post).remove();
+                    } else {
+
+                    }
+                }
+            });
+        }
+    </script>
+{% endblock %}

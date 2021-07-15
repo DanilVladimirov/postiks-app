@@ -1,0 +1,24 @@
+.button-do {
+    width: 140px;
+    padding: 5px;
+    border-radius: 10px;
+    border: 2px solid #4576b3;
+    background: #4576b3;
+    color: white;
+    font-size: 15px;
+}
+
+.button-do:hover {
+    background: #375f8f;
+    border-color: #375f8f;
+}
+
+.form-update-password {
+    display: grid;
+    width: 230px;
+}
+
+.form-update-password input {
+    padding: 5px;
+    margin-bottom: 10px;
+}

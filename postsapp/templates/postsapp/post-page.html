@@ -1,0 +1,70 @@
+{% extends 'postsapp/base.html' %}
+{% load static %}
+{% block head %}
+    <link rel="stylesheet" href="{% static 'postsapp/css/start-page-style.css' %}">
+    <script src="{% static 'postsapp/js/vote_unvote.js' %}"></script>
+{% endblock %}
+
+{% block body %}
+
+    <div class="pub-title"><a href="{{ post.link }}">{{ post.title }}</a></div>
+    <div class="pub-info" style="margin-bottom: 10px;">{{ post.author.username }} {{ post.date|date:'Y-m-d H:i' }}
+        <button class="button-vote" onclick="vote_unvote({{ post.id }})">
+            <i id="icon-{{ post.id }}"
+                    {% if request.user in post.users_upvotes.all %}
+               class="fas fa-caret-square-down"
+                    {% else %}
+               class="fas fa-caret-square-up"
+                    {% endif %}
+            ></i>
+            vote(<span id="votes-{{ post.id }}">{{ post.amount_of_upvotes }}</span>)
+        </button>
+    </div>
+    <div style="display: table">
+        {% if request.user.is_authenticated %}
+            <div class="create-comment">
+                <textarea name="comment" id="comment-{{ post.id }}" placeholder="your comment..."></textarea>
+                <button onclick="add_comment({{ post.id }})">send</button>
+            </div>
+        {% endif %}
+    </div>
+    <div>
+        <div id="comments-{{ post.id }}">
+            {% for comm in post.comment.all|dictsortreversed:"id" %}
+                <div class="comm">
+                    <div class="comm-author">{{ comm.author.username }} - {{ comm.date|date:'Y-m-d H:i' }}</div>
+                    <div>{{ comm.text }}</div>
+                </div>
+            {% endfor %}
+        </div>
+    </div>
+    <script>
+        function add_comment(post_id) {
+            var id_comment = 'comment-' + post_id;
+            var comment_text = $('#' + id_comment).val();
+            document.getElementById(id_comment).value = '';
+            $.ajax({
+                type: 'POST', url: '{% url 'add-comment' %}',
+                data: {'csrfmiddlewaretoken': csrf_token, 'comment': comment_text, 'postid': post_id},
+                dataType: 'json',
+                cache: false,
+                success: function (response) {
+                    if (response.success) {
+                        var id_comments = 'comments-' + post_id;
+                        $new_comm = $('<div class="comm"><div class="comm-author">{{ request.user.username }} - ' + response.date + '</div>' +
+                            '<div>' + comment_text + '</div></div>');
+                        var comms = document.getElementById(id_comments);
+                        var first = comms.childNodes[0];
+                        if (first == null) {
+                            $new_comm.appendTo('#' + id_comments);
+                        } else {
+                            $new_comm.insertBefore(first);
+                        }
+                    } else {
+
+                    }
+                }
+            });
+        }
+    </script>
+{% endblock %}

@@ -1,0 +1,51 @@
+<!doctype html>
+<html lang="en">
+<head>
+    {% load static %}
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <script src="https://kit.fontawesome.com/589dc909f6.js" crossorigin="anonymous"></script>
+    <script src="https://code.jquery.com/jquery-1.10.2.js"></script>
+    <script src="https://code.jquery.com/ui/1.11.2/jquery-ui.js"></script>
+    <script>var csrf_token = $('{% csrf_token %}').val(); </script>
+    <link rel="stylesheet" href="{% static 'postsapp/css/base-style.css' %}">
+    <title>{% block title %}{% endblock %}</title>
+    {% block head %}
+    {% endblock %}
+</head>
+<body>
+<div style="width: 70%;margin: auto;">
+    <ul>
+        <li><a class="active" href="{% url 'start-page' %}"><i class="fas fa-clone"></i> Postiks</a></li>
+        {% if request.user.is_authenticated %}
+            <li><a href="{% url 'create-post-page' %}"><i class="far fa-plus-square"></i> Create</a></li>
+            <li><a href="{% url 'users-post-page' %}"><i class="fas fa-user"></i> My posts</a></li>
+        {% endif %}
+        {% if request.user.is_authenticated %}
+            <li style="float: right;"><a href="{% url 'logout-page' %}"> <i class="fas fa-sign-out-alt"></i></a></li>
+        {% else %}
+            <li style="float: right;"><a href="{% url 'login-page' %}"><i class="fas fa-sign-in-alt"></i></a></li>
+        {% endif %}
+        <li style="float: right;"><a href="{% url 'api_overview' %}"><i class="fas fa-tools"></i> API</a></li>
+        {% if request.user.is_superuser %}
+            <li style="float: right;"><a href="{% url 'admin:index' %}"><i class="fas fa-user-shield"></i> Admin
+                Panel</a></li>
+        {% endif %}
+    </ul>
+    {% if messages %}
+        {% for message in messages %}
+            {% if message.level == DEFAULT_MESSAGE_LEVELS.SUCCESS %}
+                <div class="message type-success">{{ message }}</div>
+            {% endif %}
+            {% if message.level == DEFAULT_MESSAGE_LEVELS.ERROR %}
+                <div class="message type-error">{{ message }}</div>
+            {% endif %}
+        {% endfor %}
+    {% endif %}
+    {% block body %}
+    {% endblock %}
+</div>
+</body>
+</html>

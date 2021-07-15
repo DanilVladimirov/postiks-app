@@ -1,0 +1,52 @@
+{% extends 'postsapp/base.html' %}
+
+{% load static %}
+{% block head %}
+    <link rel="stylesheet" href="{% static 'postsapp/css/start-page-style.css' %}">
+{% endblock %}
+
+{% block body %}
+    <div class="title-page">My posts</div>
+    {% if not posts %}
+        <div style="font-size: 20px;font-weight: bold;color: #9e9e9e;text-align: center;">Empty :(</div>
+    {% endif %}
+    <div id="pubs">
+        {% for post in posts %}
+            <div class="pub" id="pub-{{ post.id }}">
+                <div>
+                    <button onclick="del_post({{ post.id }})" class="button-delete"><i class="fas fa-trash-alt"></i>
+                        delete
+                    </button>
+                    <button class="button-create" style="width: 120px;"
+                            onclick="location.href='{% url 'edit-post-page' post.id %}'">
+                        edit
+                    </button>
+                </div>
+                <div class="pub-title"><a href="{{ post.link }}">{{ post.title }}</a></div>
+                <div class="pub-info">{{ post.author.username }} {{ post.date|date:'Y-m-d H:i' }}
+                    <a href="{% url 'post-page' post.id %}">comment</a>
+                </div>
+            </div>
+        {% endfor %}
+    </div>
+
+    <script>
+
+        function del_post(postid) {
+            $.ajax({
+                type: 'POST', url: '{% url "del-post" %}',
+                data: {'csrfmiddlewaretoken': csrf_token, 'postid': postid},
+                dataType: 'json',
+                cache: false,
+                success: function (response) {
+                    if (response.success) {
+                        var post = "#post-" + postid;
+                        $(post).remove();
+                    } else {
+
+                    }
+                }
+            });
+        }
+    </script>
+{% endblock %}

@@ -1,0 +1,18 @@
+{% extends 'postsapp/base.html' %}
+{% load static %}
+{% block title %}
+    Создать
+{% endblock %}
+{% block head %}
+    <link rel="stylesheet" href="{% static 'postsapp/css/start-page-style.css' %}">
+{% endblock %}
+
+{% block body %}
+    <div class="title-page">Create post</div>
+    <form method="post" enctype="multipart/form-data" id="form-add-pub">
+        {% csrf_token %}
+        <input type="text" placeholder="title" name="title">
+        <input type="url" placeholder="link" name="link">
+        <button type="submit">create</button>
+    </form>
+{% endblock %}
